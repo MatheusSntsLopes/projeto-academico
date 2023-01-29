@@ -1,0 +1,30 @@
+@host = localhost
+@port = 8080
+@pathproject = academico-web-api
+
+###Retornando todas as disciplinas
+GET http://{{host}}:{{port}}/{{pathproject}}/disciplinas
+
+###Retornando uma disciplina
+GET http://{{host}}:{{port}}/{{pathproject}}/disciplinas/34
+
+###Criando uma disciplina
+POST http://{{host}}:{{port}}/{{pathproject}}/disciplinas
+Content-type: application/json
+
+{
+    "nomeDisciplina": "Banco de dados",
+    "cargaHoraria": 345
+}
+
+###Atualizando uma disciplina
+PUT http://{{host}}:{{port}}/{{pathproject}}/disciplinas/10
+Content-type: application/json
+
+{
+    "nomeDisciplina": "Construção de sites",
+    "cargaHoraria": 450
+}
+
+###Deletando uma disciplina
+DELETE http://{{host}}:{{port}}/{{pathproject}}/disciplinas/15

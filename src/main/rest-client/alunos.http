@@ -1,0 +1,75 @@
+@host = localhost
+@port = 8080
+@pathproject = academico-web-api
+
+### Lista todos os alunos
+GET http://{{host}}:{{port}}/{{pathproject}}/alunos
+
+### Busca um aluno específico por matrícula
+GET http://{{host}}:{{port}}/{{pathproject}}/alunos/20221005
+
+### Busca notas de um aluno específico por matrícula
+GET http://{{host}}:{{port}}/{{pathproject}}/alunos/20221005/notas
+
+### Criar um aluno
+POST http://{{host}}:{{port}}/{{pathproject}}/alunos
+Content-type: application/json 
+
+{
+    "cpf": "111.111.111-10",
+    "endereco": {
+      "CEP": 49700,
+      "bairro": "Atalaia",
+      "cidade": "Aracaju",
+      "estado": "Sergipe",
+      "id": 0,
+      "rua": "Rua Z",
+      "status": "ATIVO"
+    },
+    "idade": 29,
+    "matricula": 20225055,
+    "naturalidade": "SE",
+    "nome": "Tabaréu",
+    "nomeCompleto": "Tabaréu Conde",
+    "sexo": "M",
+    "sobrenome": "Conde",
+    "aprovado": false,
+    "curso": "Informática",
+    "estaMatriculado": true,
+    "media": 0.0,
+    "mediaPonderada": 0.0,
+    "notas": []
+  }
+
+### Atualizar todos os atributos de um aluno
+PUT http://{{host}}:{{port}}/{{pathproject}}/alunos/20219710
+content-type: application/json
+
+{
+    "cpf": "141.141.141-77",
+    "endereco": {
+      "CEP": 49700,
+      "bairro": "Baixa da Égua",
+      "cidade": "Aracaju",
+      "estado": "Sergipe",
+      "id": 0,
+      "rua": "Rua do Genipapo",
+      "status": "ATIVO"
+    },
+    "idade": 24,
+    "matricula": 20225055,
+    "naturalidade": "SE",
+    "nome": "Furunfa",
+    "nomeCompleto": "Furunfa Santos",
+    "sexo": "F",
+    "sobrenome": "Santos",
+    "aprovado": false,
+    "curso": "Artes",
+    "estaMatriculado": true,
+    "media": 0.0,
+    "mediaPonderada": 0.0,
+    "notas": []
+  }
+
+### Deletar um aluno
+DELETE http://{{host}}:{{port}}/{{pathproject}}/alunos/20213314

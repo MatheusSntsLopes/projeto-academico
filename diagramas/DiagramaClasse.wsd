@@ -1,0 +1,106 @@
+@startuml Academico
+
+enum StatusEndereco{
+   ATIVO
+   DESATIVO
+}
+Class Endereco{
+  - int CEP
+  - String rua
+  - String bairro
+  - String cidade
+  - String estado
+  - StatusEndereco status
+
+}
+abstract class Pessoa {
+  - int matricula
+  - String nome
+  - String sobrenome
+  - int idade
+  - String naturalidade
+  - char sexo
+  - String cpf
+  - Endereco endereco
+   {abstract} int gerarMatricula()
+}
+Class Nota{
+  - double valor
+  - int peso
+}
+
+Class Aluno{
+  - String curso
+  - boolean estaMatriculado
+  - String situacaoAluno
+  - boolean aprovado
+  - double media
+  - List<Nota> notas
+  - {static} int qtdAlunos
+  - {static} String nomeInstutuicao
+  + int gerarMatricula()
+  + public double obterMedia()
+  + public double obterMediaPonderada()
+  - public boolean situacaoAluno()
+
+
+}
+
+Class Professor{
+  + int gerarMatricula()
+  - int cargaHoraria
+  - float salario
+}
+
+Class Disciplina{
+  - String nomeDisciplina
+  - int cargaHoraria
+
+}
+Class Sala{
+  - boolean quadroBranco
+  - boolean arCondicionado
+  - boolean laboratorio
+  - String numeroSala
+  - int capacidadeAluno
+}
+Class Turma{
+  - double mediaTurma
+  - String nomeTurma
+  - String periodoTurma
+  - Professor professor
+  - Disciplina disciplina
+  - List<Aluno> alunos
+  - List<SalaAula> salasAula
+  + public double mediaTurma()
+}
+Interface IProjeto {
+  + void submeterProjetoPesquisa()
+  + void submeterProjetoExtensao()
+}
+Interface IEvento{
+  + void inscrever()
+}
+
+enum situacaoAluno {
+   Aprovado
+   Recuperacao
+   Reprovado
+}
+
+Pessoa <|--Aluno
+Pessoa <|--Professor
+Pessoa o--"0..1" Endereco: contém >
+Aluno *--"2..4"Nota: contém >
+Turma o--"0..1" Professor: contém >
+Turma o--"0..1" Disciplina: contém >
+Turma o--"0..30" Aluno: contém >
+Turma o--"0..X" Sala: contém >
+
+IProjeto <|..Aluno
+IProjeto <|.. Professor
+IEvento <|..Professor
+IEvento <|.. Aluno
+
+Endereco o--"1..1" StatusEndereco: contém >
+@enduml

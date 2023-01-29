@@ -1,0 +1,44 @@
+@host = localhost
+@port = 8080
+@pathproject = academico-web-api
+
+###Lista todos os professores
+GET http://{{host}}:{{port}}/{{pathproject}}/professores
+
+###Busca um professor especifico por id
+GET http://{{host}}:{{port}}/{{pathproject}}/professores/1
+
+###Criar um professor 
+POST http://{{host}}:{{port}}/{{pathproject}}/professores
+Content-type: application/json
+
+{
+    "nome": "Jose",
+    "sobrenome": "Lima",
+    "naturalidade": "Alagoas",
+    "idade": 22,
+    "matricula": 332221,
+    "sexo": "m",
+    "cpf": "72777777",
+    "salario": 33333,
+    "cargaHoraria":200
+}
+
+###Atualizar todos os atributos de um professor
+PUT http://{{host}}:{{port}}/{{pathproject}}/professores/1
+Content-type: application/json
+
+{   
+    "nome": "Maria",
+    "sobrenome": "Santana",
+    "naturalidade": "Manaus",
+    "idade": 30,
+    "matricula": 221113,
+    "sexo": "f",
+    "cpf": "5555666",
+    "salario": 22222,
+    "cargaHoraria":123
+}
+
+###Deletar um professor
+DELETE http://{{host}}:{{port}}/{{pathproject}}/professores/1
