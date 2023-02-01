@@ -4,7 +4,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
-
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.academico.config.AutoScanIoFeature;
@@ -31,6 +31,7 @@ import javax.ws.rs.core.Response.Status;
 public class NotaResourceTest extends JerseyTest {
 
     private INotaService notaServiceMocked;
+    
 
     @Override
     protected Application configure() {
@@ -137,7 +138,6 @@ public class NotaResourceTest extends JerseyTest {
        assertThat(notaSalvo)
            .withFailMessage("O conteúdo da resposta deve ser um objeto do tipo Nota")
            .isInstanceOf(Nota.class);
-
     }
 
 

@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.GeneratorType;
 import org.hibernate.validator.constraints.Range;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,9 +28,21 @@ public class Nota {
 
     @Range(min=1, max=1, message = "O atributo Peso deve ser inteiro e ter no mínimo e no maximo 1 algarismos.")
     int peso;
+    
+    @Column(name = "matricula_aluno")
+    private Long matriculaAluno;
 
+    
     public Long getId() {
         return id;
+    }
+
+    public Long getMatriculaAluno() {
+        return matriculaAluno;
+    }
+
+    public void setMatriculaAluno(Long matriculaAluno) {
+        this.matriculaAluno = matriculaAluno;
     }
 
     public void setId(Long id) {

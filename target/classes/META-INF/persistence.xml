@@ -22,7 +22,7 @@
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/academico-db" />
             <property name="jakarta.persistence.jdbc.user" value="postgres" />
-            <property name="jakarta.persistence.jdbc.password" value="postgres" />
+            <property name="jakarta.persistence.jdbc.password" value="shacomain" />
             <!-- Propriedades personalizadas do Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.show_sql" value="true" /> <!-- Mostrar SQL no console - durante o desenvolvimento -->
