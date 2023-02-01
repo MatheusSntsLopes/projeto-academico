@@ -1,52 +1,52 @@
 package br.com.academico.aluno;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
-import br.com.academico.endereco.Endereco;
+
+import br.com.academico.nota.Nota;
 import br.com.academico.pessoa.Pessoa;
 
-public class Aluno extends Pessoa implements Serializable {
-    private String nomeCurso;
-    private boolean matriculado;
-    private double media;
-    private SituacaoAluno situacaoAluno;
-    private boolean aprovado;
-    private int id;
 
-    // Associação entre classes através de atributos
-    // O atributo notas é uma arraylist (coleção) do tipo/classe Nota
-    // Associação Estrutural - Composição - A partir de atributo
-    List<Nota> notas = new ArrayList<Nota>();
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+public class Aluno extends Pessoa {
+    private static final long serialVersionUID = 1L;
     
-    public List<Nota> getNotas() {
-        return notas;
+	private String curso;
+    private boolean estaMatriculado;
+    private double media;
+    private double mediaPonderada;
+    private boolean aprovado;
+    private String situacao;
+
+    private List<Nota> notas = new ArrayList<Nota>();
+
+    private static int quantidadeAlunos = 0;
+    private static String nomeInstituicao = "IFS";
+
+    public String getCurso() {
+        return curso;
     }
 
-    public void setNotas(List<Nota> notas) {
-        this.notas = notas;
+    public void setCurso(String curso) {
+        this.curso = curso;
     }
 
-    static int qtdAluno = 0;
-    static String nomeInstituicao = "IFS";
-
-    public static int getQtdAluno() {
-        return qtdAluno;
+    public boolean isEstaMatriculado() {
+        return estaMatriculado;
     }
 
-    public static void setQtdAluno(int qtdAluno) {
-        Aluno.qtdAluno = qtdAluno;
+    public void setEstaMatriculado(boolean estaMatriculado) {
+        this.estaMatriculado = estaMatriculado;
+    }
+
+    public static int getQuantidadeAlunos() {
+        return quantidadeAlunos;
+    }
+
+    public static void setQuantidadeAlunos(int quantidadeAlunos) {
+        Aluno.quantidadeAlunos = quantidadeAlunos;
     }
 
     public static String getNomeInstituicao() {
@@ -57,16 +57,12 @@ public class Aluno extends Pessoa implements Serializable {
         Aluno.nomeInstituicao = nomeInstituicao;
     }
 
-    public String getNomeCurso() {
-        return nomeCurso;
+    public List<Nota> getNotas() {
+        return notas;
     }
 
-    public void setNomeCurso(String nomeCurso) {
-        this.nomeCurso = nomeCurso;
-    }
-
-    public boolean isMatriculado() {
-        return matriculado;
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
     }
 
     public double getMedia() {
@@ -77,8 +73,12 @@ public class Aluno extends Pessoa implements Serializable {
         this.media = media;
     }
 
-    public SituacaoAluno getSituacaoAluno() {
-        return situacaoAluno;
+    public double getMediaPonderada() {
+        return mediaPonderada;
+    }
+
+    public void setMediaPonderada(double mediaPonderada) {
+        this.mediaPonderada = mediaPonderada;
     }
 
     public boolean isAprovado() {
@@ -89,103 +89,88 @@ public class Aluno extends Pessoa implements Serializable {
         this.aprovado = aprovado;
     }
 
-    public void setSituacaoAluno(SituacaoAluno situacaoAluno) {
-        this.situacaoAluno = situacaoAluno;
+    public String getSituacao() {
+        return situacao;
     }
 
-    public void setMatriculado(boolean matriculado) {
-        this.matriculado = matriculado;
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
 
     public Aluno() {
         super();
-        this.incrementarAlunos();
+        this.incrementaQuantidadeAlunos();
         this.setMatricula(this.gerarMatricula());
     }
 
-    public Aluno(String nome, String sobrenome, String naturalidade, int idade, int matricula, String sexo, String cpf,
-        String curso, boolean matriculado) {
-        super(nome, sobrenome, naturalidade, idade, matricula, sexo, cpf);
-        this.nomeCurso = curso;
-        this.matriculado = matriculado;
-        this.incrementarAlunos();
+    public Aluno(String nome, String sobrenome, int idade, String naturalidade, char sexo, String cpf,
+                String curso, boolean estaMatriculado) {
+        super(nome, sobrenome, idade, naturalidade, sexo, cpf);
+        this.curso = curso;
+        this.estaMatriculado = estaMatriculado;
+        this.incrementaQuantidadeAlunos();
         this.setMatricula(this.gerarMatricula());
     }
 
-    public String getNomeCompleto() {
-        return this.getNome() + " " + this.getSobrenome();
-    }
-
+    @Override
     public String toString() {
         String detalhes = "";
         detalhes += super.toString();
-        detalhes += "Curso: " + this.getNomeCurso() + "\n";
-        detalhes += "Está Matriculado? " + this.isMatriculado() + "\n";
-        detalhes += "Notas " + this.getNotas() + "\n";
-        detalhes += "Nome da instituição: " + Aluno.getNomeInstituicao() + "\n";
-        detalhes += "Media aritmetica das notas: " + this.obterMedia() + "\n";
-        detalhes += "Media ponderada das notas: " + this.mediaPonderada() + "\n";
-        detalhes += "A situação do aluno é: " + this.getSituacaoAluno() + "\n";
+        detalhes += "Curso: " + this.getCurso() + " \n";
+        detalhes += "Esta Matriculado? " + this.isEstaMatriculado() + " \n";
+        detalhes += "Notas " + this.getNotas() + " \n";
+        detalhes += "Média Aritimética: " + this.getMedia() + " \n";
+        detalhes += "Média Ponderada " + this.getMediaPonderada() + " \n";
+        detalhes += "Situação: " + this.getSituacao() + " \n";
+        detalhes += "Aprovado: " + this.isAprovado() + " \n";
+        detalhes += "Nome da Instituição " + Aluno.getNomeInstituicao() + " \n";
         return detalhes;
     }
 
-    private void incrementarAlunos() {
-        ++Aluno.qtdAluno;
+    private void incrementaQuantidadeAlunos() {
+        ++Aluno.quantidadeAlunos;
     }
 
-    // O método gerarMatricula é uma sobrescrita
-    // A implementação do método gerarMatricula na classe Aluno sobrescreve o método
-    // abstratodefinido na classe Pessoa
-    // Associaçaõ Comportamental - Dependência da Classe Aluno com as classes Random
-    // eCalendar através de imports.
     @Override
     public int gerarMatricula() {
-        Random gerador = new Random(); // Instancia a classe Random
-        Calendar calendario = Calendar.getInstance(); // Recupera uma instancia da classe Calendar
-        int ano = calendario.get(Calendar.YEAR); // Recupera o ano atual
-        int min = 1000; // Define o valor mínimo para do valor aletório
-        int max = 9999; // Define o valor máximo para do valor aletório
-        String matricula = String.valueOf(ano) + String.valueOf(gerador.nextInt(max - min + 1) +
-                min);
+        Random gerador = new Random();
+        Calendar calendario = Calendar.getInstance();
+        int ano = calendario.get(Calendar.YEAR);
+        int min = 1000;
+        int max = 9999;
+        String matricula = String.valueOf(ano) + String.valueOf(gerador.nextInt(max - min + 1) + min);
         return Integer.parseInt(matricula);
     }
 
-    public double obterMedia() {
-        double soma = 0;
-        List<Nota> nota = this.getNotas();
-        for (int i = 0; i < notas.size(); i++) {
-            soma += notas.get(i).getValor();
-        }
-        media = soma / notas.size();
-        return media;
-    }
-
-    public double mediaPonderada() {
-        double peso = 0;
-        double notaPeso = 0;
-        for (int i = 1; i < notas.size(); i++) {
-            peso += notas.get(i).getPeso();
-            notaPeso += notas.get(i).getValor() * notas.get(i).getPeso();
-        }
-        return media = notaPeso / peso;
-    }
-
-    public void situacao() {
-        if (obterMedia() >= 7) {
-            this.setSituacaoAluno(SituacaoAluno.APROVADO);
+    private void verificarSituacao() {
+        if (this.getMedia() >= 7) {
+            this.setSituacao(SituacaoAluno.APROVADO.toString());
             this.setAprovado(true);
-        }
-        if (obterMedia() >= 5 && obterMedia() < 7) {
-            this.setSituacaoAluno(SituacaoAluno.RECUPERACAO);
+        } else if (this.getMedia() >= 5 && this.getMedia() < 7) {
+            this.setSituacao(SituacaoAluno.RECUPERACAO.toString());
             this.setAprovado(false);
-        }
-        if (obterMedia() < 5) {
-            this.setSituacaoAluno(SituacaoAluno.REPROVADO);
+        } else {
+            this.setSituacao(SituacaoAluno.REPROVADO.toString());
             this.setAprovado(false);
         }
     }
 
     public void calcularMediaAritimetica() {
+        double somatorio = 0;
+        for (Nota nota : this.getNotas()) {
+            somatorio += nota.getValor();
+        }
+        this.setMedia(somatorio / this.getNotas().size());
+        this.verificarSituacao();
     }
 
+    public void calcularMediaPonderada() {
+        double somatorio = 0;
+        double somatorioPesos = 0;
+        for (Nota nota : this.getNotas()) {
+            somatorio += nota.getValor() * nota.getPeso();
+            somatorioPesos += nota.getPeso();
+        }
+        this.setMediaPonderada(somatorio / somatorioPesos);
+    }
 }
